@@ -32,6 +32,11 @@
   nav ul{display:flex;gap:44px;list-style:none;font-weight:700;font-size:1.05rem;color:var(--navy);}
   nav ul a:hover{color:var(--olive);}
   .connect{font-weight:800;color:var(--navy);border-bottom:3px solid var(--yellow-pop);padding-bottom:2px;}
+  .burger{display:none;flex-direction:column;gap:6px;background:none;border:0;cursor:pointer;padding:8px;z-index:60;}
+  .burger span{width:28px;height:3px;background:var(--navy);border-radius:3px;transition:.3s;}
+  .burger.open span:nth-child(1){transform:translateY(9px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg);}
 
   /* HERO */
   .hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:40px;padding-top:130px;position:relative;}
@@ -51,6 +56,20 @@
   .plus{position:absolute;top:6%;right:2%;font-family:'Poppins',sans-serif;font-weight:800;color:var(--olive);
         font-size:3rem;line-height:.85;transform:rotate(8deg);}
   .hatch{position:absolute;bottom:14%;left:-8%;font-weight:800;font-size:2.6rem;letter-spacing:6px;color:var(--olive);transform:rotate(-6deg);}
+
+  /* entrance animations */
+  .hello{animation:fadeUp .7s .05s cubic-bezier(.2,.9,.3,1) both;}
+  .hero h1{animation:fadeUp .8s .2s cubic-bezier(.2,.9,.3,1) both;}
+  .hero .btn{animation:fadeUp .8s .4s cubic-bezier(.2,.9,.3,1) both;}
+  .portrait-wrap{animation:pop .9s .25s cubic-bezier(.2,1.4,.4,1) both;}
+  .plus{animation:wiggle 4s ease-in-out 1s infinite;}
+  .hatch{animation:wiggle 4s 1.6s ease-in-out infinite;}
+  .doodle-title{animation:wobble 5s ease-in-out infinite;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+  @keyframes wiggle{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-2deg)}}
+  @keyframes wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(1deg)}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
   /* marquee */
   .marquee{background:var(--navy);color:var(--yellow);overflow:hidden;white-space:nowrap;padding:16px 0;
@@ -110,12 +129,23 @@
   .reveal.on{opacity:1;transform:none;}
 
   @media(max-width:860px){
-    .hero{grid-template-columns:1fr;padding-top:120px;text-align:center;}
+    .hero{grid-template-columns:1fr;padding-top:110px;text-align:center;}
     .hero .btn{margin-top:30px;}
-    .portrait-wrap{order:-1;width:min(300px,70vw);}
+    .portrait-wrap{order:-1;width:min(290px,72vw);}
     .hatch{left:-4%;}
-    section{padding:70px 6vw;}
-    nav ul{gap:20px;font-size:.92rem;}
+    section, header.hero{padding:64px 6vw;}
+    .burger{display:flex;}
+    nav{padding:16px 5vw;}
+    .connect{display:none;}
+    nav ul{position:fixed;top:0;right:0;bottom:0;width:min(80vw,340px);flex-direction:column;justify-content:center;
+           align-items:center;gap:38px;font-size:1.3rem;background:var(--yellow);border-left:2px solid var(--navy);
+           transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.9,.3,1);box-shadow:-12px 0 40px rgba(33,26,122,.25);}
+    nav ul.open{transform:none;}
+    nav ul li a{border-bottom:3px solid transparent;padding-bottom:2px;}
+    nav ul li a:hover{border-color:var(--navy);}
+    .marquee{font-size:.85rem;}
+    .contact-row{flex-direction:column;align-items:center;}
+    .pill{width:100%;max-width:340px;text-align:center;}
   }
 </style>
 </head>
@@ -129,6 +159,9 @@
     <li><a href="#work">Work</a></li>
   </ul>
   <a class="connect" href="#connect">Let's connect!</a>
+  <button class="burger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -202,6 +235,15 @@
 <script>
   const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('on')), {threshold:.15});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  const burger = document.querySelector('.burger'), menu = document.querySelector('nav ul');
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false');
+  }));
 </script>
 </body>
 </html>
