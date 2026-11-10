@@ -71,6 +71,12 @@
   @keyframes wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(1deg)}}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 
+  /* RESUME */
+  #resume{text-align:center;}
+  .pdf-frame{margin:46px auto 0;max-width:740px;aspect-ratio:210/297;border:1.8px solid var(--navy);border-radius:14px;
+             box-shadow:9px 9px 0 var(--yellow-pop);overflow:hidden;background:#fff;}
+  .pdf-frame iframe{width:100%;height:100%;border:0;display:block;}
+
   /* marquee */
   .marquee{background:var(--navy);color:var(--yellow);overflow:hidden;white-space:nowrap;padding:16px 0;
            font-family:'Poppins',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.14em;}
@@ -150,6 +156,7 @@
     .marquee{font-size:.85rem;}
     .contact-row{flex-direction:column;align-items:center;}
     .pill{width:100%;max-width:340px;text-align:center;}
+    .pdf-frame{aspect-ratio:auto;height:62vh;max-width:100%;}
   }
 </style>
 </head>
@@ -173,7 +180,8 @@
   <div>
     <p class="hello">Hello, I'm Stephanie,</p>
     <h1>Social Media <em>Manager</em></h1>
-    <a class="btn" href="#connect">Let's work together →</a>
+    <a class="btn" href="#resume">Resume ↓</a>
+    <a class="btn" href="#connect" style="margin-left:14px;background:#fff;">Let's work together →</a>
   </div>
   <div class="portrait-wrap">
     <img class="portrait" src="stephanie.jpg" alt="Stephanie Ifunanya — Social Media Manager">
@@ -219,6 +227,16 @@
   <div class="chips reveal">
     <span class="chip alt">Instagram</span><span class="chip">TikTok</span><span class="chip alt">Facebook</span><span class="chip">WhatsApp</span>
     <span class="chip alt">CapCut</span><span class="chip">Canva</span><span class="chip alt">Meta Business Suite</span>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <span class="doodle-title">My resume</span>
+  <h2 class="section-title">Want the full story? Grab it here.</h2>
+  <a class="btn" href="resume.pdf" download="Onyia-Stephanie-Resume.pdf">Download resume (PDF) ⬇</a>
+  <div class="pdf-frame reveal">
+    <iframe src="resume.pdf" title="Stephanie's resume preview"></iframe>
   </div>
 </section>
 
